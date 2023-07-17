@@ -1,0 +1,326 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<TITLE>+ Sanglier Darley +</TITLE>
+<META NAME="Author" CONTENT="ID Alizes - Luc Lambert-">
+<META NAME="description" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<!--<base target="_top">-->
+
+</head>
+<body BACKGROUND="fond.jpg" tppabs="http://www.id-alizes.fr/darley/Images/fond.jpg" text="#000000" bgcolor="#F4D58E" LINK="#0000FF" VLINK="#FF6633">
+<SCRIPT LANGUAGE="Javascript1.1">
+<!-- Les petits poissons
+// Copyright Frank Milard - http://www.asaisir.com/a-la-page
+
+var nameSP2a = "marcassin1.gif";
+var nameSP2b = "marcassin2.gif";
+var heightSP2 = 20;
+var widthSP2 = 35;
+
+NS4 = (document.layers) ? 1 : 0;
+IE4 = (document.all) ? 1 : 0;
+VERSION4 = (NS4|IE4) ? 1 : 0;
+
+var objSP2 = new Array();
+var numObjSP2 = 6;
+var ptrSP2 = 0;
+
+var xborneSP2 = 100;
+var yborneSP2 = 100;
+var xaqSP2 = xborneSP2;
+var yaqSP2 = yborneSP2;
+var xcaqSP2 = xborneSP2;
+var ycaqSP2 = yborneSP2;
+
+var fSP2 = 0;
+
+function animObjSP2 () {
+    if (fSP2 == 0) {
+        (this.d) ? this.x+=2 : this.x-=2;
+        if (this.x >= xborneSP2) {
+            this.x = xborneSP2;
+	    this.changedir();
+	}
+	if (this.x <= -xborneSP2) {
+	    this.x = -xborneSP2;
+	    this.changedir();
+	}
+
+	if (Math.round(Math.random()*(this.s+1)*60) == 1) this.changedir ();
+    }
+
+    var t = Math.round(Math.random()*(this.s+1)*10);
+    if (t==2 && this.y <  yborneSP2) this.y++;
+    if (t==1 && this.y > -yborneSP2) this.y--;
+
+    if (NS4) {
+        this.layer.left = this.x+xaqSP2;
+	this.layer.top = this.y+yaqSP2;
+    } else {
+	this.layer.style.pixelLeft = this.x+xaqSP2;
+	this.layer.style.pixelTop = this.y+yaqSP2;
+    }
+}
+
+function changedirObjSP2 () { 
+    if (this.d == 0) {
+	this.d = 1;
+        this.img.src = nameSP2b;
+    }
+    else {
+	this.d = 0;
+        this.img.src = nameSP2a;
+    }
+}
+
+function defObjSP2(ID) {
+    if (NS4) {
+        this.layer = new Layer (0);
+        this.layer.visibility = "visible";
+        this.layer.document.write('<img name=\"imgSP2'+ID+'\" src=\"'+nameSP2a+'\" height=\"'+heightSP2+'\" width=\"'+widthSP2+'\" border=\"0\">');
+        this.layer.document.close();
+        eval ('this.img   = this.layer.document.images[\'imgSP2'+ID+'\']');
+    } else {
+        eval ('this.layer = document.all.SP2'+ID);
+        eval ('this.img   = document.images[\'imgSP2'+ID+'\']');
+    }
+    this.d = Math.round(Math.random());
+    this.s = Math.round(Math.random());
+    this.x = Math.round(Math.random()*2*xborneSP2) - xborneSP2;
+    this.y = Math.round(Math.random()*2*yborneSP2) - yborneSP2;
+
+    this.img.src = (this.d ==0) ? nameSP2a : nameSP2b;
+
+    this.anim = animObjSP2;
+    this.changedir = changedirObjSP2;
+}
+
+function animSP2() {
+    var dx = xcaqSP2-xaqSP2;
+    if (Math.abs(dx) > 2) {
+        var ix = Math.round(dx/10);
+	if (Math.abs(ix) < 2 ) ix = dx > 0 ? 2 : -2;
+        xaqSP2 += ix;
+	fSP2 = 1;
+    }
+    else {
+	xaqSP2 = xcaqSP2;
+	fSP2 = 0;
+    }
+
+    if (ycaqSP2 != yaqSP2) yaqSP2 += Math.round((ycaqSP2-yaqSP2)/10);
+
+    for(var x=0; x < numObjSP2; x++) {
+        if (dx != 0) {
+            if (dx < 0 && objSP2[x].d == 1) objSP2[x].changedir();
+            if (dx > 0 && objSP2[x].d == 0) objSP2[x].changedir();
+	}
+        objSP2[x].anim();
+    }
+}
+
+function mouseEventSP2(e) {
+    if (NS4) {
+        xcaqSP2 = e.pageX ;
+        ycaqSP2 = e.pageY ;
+    } else {
+        xcaqSP2 = event.clientX + document.body.scrollLeft ;
+        ycaqSP2 = event.clientY + document.body.scrollTop ;
+    }
+}
+
+function initSP2() {
+    if (VERSION4) {
+        for(var x=0; x<numObjSP2; x++) objSP2[x] = new defObjSP2(x) ;
+
+        if (NS4) document.captureEvents(Event.MOUSEMOVE);
+        document.onmousemove = mouseEventSP2;
+
+        setInterval("animSP2();",50);
+    }
+}
+
+if (VERSION4 && ! NS4) {
+    for (var x=0; x<numObjSP2; x++) {
+        document.write('<div id="SP2'+x+'" style="position: absolute; visibility: visible;">');
+        document.write('<img name="imgSP2'+x+'" src="'+nameSP2a+'" height="'+heightSP2+'" width="'+widthSP2+'" border="0"></div>');
+        document.write('</div>');
+    }
+}
+
+if (window.onload) {
+    if (window.RegExp) {
+        var regstr = '^[^\\{]*\\{((.|\\t|\\n|\\r)*)}[^\\}]*$';
+        window.onload.toString().match(regstr);
+        window.onload = new Function (RegExp.$1+"; initSP2 ();");
+    }
+}
+else window.onload = initSP2;
+
+// -->
+</SCRIPT>
+<table border="0" cellpadding="0" cellspacing="0" width="100%" background="single_pixel.gif" tppabs="http://www.id-alizes.fr/darley/Images/single_pixel.gif" height="100%">
+  <tr> 
+    <td align="left" valign="top" rowspan="3" width="146"> 
+      <table border="0" cellpadding="0" cellspacing="0" width="145" background="single_pixel.gif" tppabs="http://www.id-alizes.fr/darley/Images/single_pixel.gif">
+        <tr> 
+          <td> <a href="index.html" tppabs="http://www.id-alizes.fr/darley/index.html"> 
+            <img src="g1.gif" tppabs="http://www.id-alizes.fr/darley/Images/g1.gif" height="167" width="145" align="texttop" alt= "Acceuil"  border=0 > 
+            </a> </td>
+        </tr>
+        <tr> 
+          <td> <a href="present.html" tppabs="http://www.id-alizes.fr/darley/presentation.html"> 
+            <img src="g2.gif" tppabs="http://www.id-alizes.fr/darley/Images/g2.gif" height="26" width="145" align="texttop" alt= "Presentation"  border=0 > 
+            </a></td>
+        </tr>
+        <tr> 
+          <td> <a href="produits.html" tppabs="http://www.id-alizes.fr/darley/produits.html"> 
+            <img src="g3blanc.gif" tppabs="http://www.id-alizes.fr/darley/Images/g3.gif" height="26" width="145" align="texttop" alt= "Produits"  border=0 > 
+            </a></td>
+        </tr>
+        <tr> 
+          <td> <a href="command.html" tppabs="http://www.id-alizes.fr/darley/commander.html"> 
+            <img src="g4.gif" tppabs="http://www.id-alizes.fr/darley/Images/g4.gif" height="26" width="145" align="texttop" alt= "Commander"  border=0 > 
+            </a></td>
+        </tr>
+        <tr> 
+          <td> <a href="sanglier.html" tppabs="http://www.id-alizes.fr/darley/sanglier.html"> 
+            <img src="g5.gif" tppabs="http://www.id-alizes.fr/darley/Images/g5.gif" height="26" width="145" align="texttop" alt= "Sanglier"  border=0 > 
+            </a></td>
+        </tr>
+        <tr> 
+          <td> <a href="ferme.html" tppabs="http://www.id-alizes.fr/darley/ferme.html"> 
+            <img src="g6.gif" tppabs="http://www.id-alizes.fr/darley/Images/g6.gif" height="26" width="145" align="texttop" alt= "La Ferme"  border=0 > 
+            </a></td>
+        </tr>
+        <tr> 
+          <td> 
+            <p><font size="4"><font color="#0000FF"><a href="qsn.htm"><img src="g10.gif" width="145" height="26" border="0"></a><br>
+              </font></font></p>
+          </td>
+        </tr>
+        <tr> 
+          <td> 
+            <p><a href="poteries.htm"><img src="g11.gif" width="145" height="26" border="0"></a><br>
+            </p>
+          </td>
+        </tr>
+        <tr> 
+          <td> 
+            <p><font size="4" color="#0000FF"><a href="huiles.htm"><img src="g12.gif" width="145" height="26" border="0"></a><br>
+              </font></p>
+          </td>
+        </tr>
+        <tr valign="top"> 
+          <td height="4"> 
+            <p><a href="escalade.htm"><img src="g14.gif" width="145" height="26" border="0"></a><br>
+            </p>
+          </td>
+        </tr>
+        <tr valign="top"> 
+          <td height="4"><a href="brebis.htm"><img src="g15.gif" width="145" height="26" border="0"></a><br>
+          </td>
+        </tr>
+        <tr valign="top"> 
+          <td height="4"> 
+            <p><a href="jeu.htm"><img src="g16.gif" width="145" height="26" border="0"></a><br>
+            </p>
+          </td>
+        </tr>
+        <tr> 
+          <td> 
+            <p><a href="http://darley.fr/darley.htm"><img src="g17.gif" width="145" height="26" border="0"></a><br>
+            </p>
+          </td>
+        </tr>
+        <tr> 
+          <td> <a href="mailto:eric@darley.com.fr"><img src="g7.gif" width="145" height="26" border="0" alt="Ecrivez nous"></a><br>
+          </td>
+        </tr>
+        <tr> 
+          <td> <a href="liens.html" tppabs="http://www.id-alizes.fr/darley/liens.html"> 
+            <img src="g8.gif" tppabs="http://www.id-alizes.fr/darley/Images/g8.gif" height="26" width="145" align="texttop" alt= "Liens"  border=0 > 
+            </a></td>
+        </tr>
+        <tr> 
+          <td><img src="g9.gif" tppabs="http://www.id-alizes.fr/darley/Images/g9.gif" height="88" width="145" align="texttop"  border=0 ></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" valign="top" width="919"><img src="http://darley.fr/haut.gif" tppabs="http://www.id-alizes.fr/darley/Images/haut.gif" height="122" width="605" align="texttop" alt= Acceuil  border=0 ></td>
+  </tr>
+  <tr> 
+    <td align="left" valign="top" width="919" height="959"> 
+      <p align="center"><b><font size="4">Les Produits :</font></b></p>
+      <p align="center"><font size="3">Mes animaux sont &eacute;lev&eacute; sans 
+        stress, nourris depuis le d&eacute;but de l'&eacute;levage sans farines, 
+        ni OGM, ni aliments tout pr&eacute;par&eacute;s.<br>
+        Leur nourriture est constitu&eacute;e de grains entiers (orge, bl&eacute;, 
+        triticale, pois ), de petit lait (serum de fromage de laiterie ), de l&eacute;gumes 
+        divers (carottes, pommes de terre), de pains secs.<br>
+        <br>
+        Ils sont emmen&eacute;s vivant &agrave; l'abattoir et sont garantis non 
+        chass&eacute;s.</font> </p>
+      <div align="center">
+        <blockquote>V<font size="3">oici les produits <u><b>tous pur sanglier</b></u> 
+          que je propose &agrave; la vente. <br>
+          Vous pouvez en recevoir certains directement chez vous en suivant les 
+          recommandations de la page <a href="command.html">commander</a>.</font></blockquote>
+      </div>
+      <blockquote>
+<p align="center"><font size="3">Cliquez sur un produit pour avoir une 
+          d&eacute;finition compl&egrave;te.</font></p>
+        <table width="86%" border="0" height="71%">
+          <tr> 
+            <td width="45%" height="161" align="center" valign="top"> 
+              <p><a href="pategeni.htm" target="pate au genievre"><img src="photprod/pate%CC%81cha2.JPG" width="200" height="150" border="0" align="top" alt="paté au genievre"></a></p>
+            </td>
+            <td width="55%" height="161" valign="top" align="center"> 
+              <p><a href="pate%CC%81hure.htm" target="paté de hure"><img src="photprod/hure.JPG" width="200" height="150" align="top" border="0" alt="paté de hure"></a></p>
+            </td>
+          </tr>
+          <tr> 
+            <td width="45%" valign="middle" height="103"> 
+              <div align="center"><a href="rillettes.htm" target="rillettes"><img src="photprod/pate%CC%81cha2.JPG" width="203" height="136" alt="rillettes" border="0" align="top"></a></div>
+            </td>
+            <td width="55%" valign="middle" height="103"> 
+              <div align="center"></div>
+            </td>
+          </tr>
+          <tr> 
+            <td width="45%" valign="middle" height="183"> 
+              <p align="center"><a href="civetboc.htm" target="civet en boite"><img src="photprod/civet.JPG" width="200" height="150" border="0" align="top" alt="civet aux champignons, légumes, sauce au madiran"></a></p>
+            </td>
+            <td width="55%" valign="middle" height="183"> 
+              <p align="center"><a href="civetboi.htm" target="civet en boite"><img src="photprod/civetboite1.JPG" width="108" height="171" border="0" align="top" alt="civet aux champignons, sauce au madiran"></a></p>
+            </td>
+          </tr>
+          <tr> 
+            <td width="45%" height="2" valign="middle" align="center"><font size="3"><b>Je 
+              propose aussi des sangliers <br>
+              pr&ecirc;t &agrave; rotir, livr&eacute; </b></font><font size="3"><b>dans 
+              un rayon <br>
+              de 100 Km de la ferme <br>
+              au prix de 50 Fr le Kilo</b></font></td>
+            <td width="55%" height="2" valign="middle" align="center"><b>Un atelier 
+              de d&eacute;coupe et de transformation est <br>
+              &agrave; l'&eacute;tude sur la ferme pour vous proposer,<br>
+              vers l'&eacute;t&eacute; prochain, de la viande <br>
+              et des plats cuisin&eacute;s de sanglier.</b></td>
+          </tr>
+        </table>
+        <p align="center">&nbsp;</p>
+        <p align="center">&nbsp; </p>
+      </blockquote>
+            </td>
+  </tr>
+  <tr> 
+    <td align="left" valign="top" width="919" height="60"> <a href="http://www.id-alizes.fr/" tppabs="http://www.id-alizes.fr/"> 
+      <img src="bas.gif" tppabs="http://www.id-alizes.fr/darley/Images/bas.gif" height="55" width="605" align="texttop" alt="ID Aliz&eacute;s"  border=0 > 
+      </a></td>
+  </tr>
+</table>
+</body>
+</html>

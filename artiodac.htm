@@ -1,0 +1,401 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<TITLE>Sanglier Darley</TITLE>
+<META NAME="Author" CONTENT="ID Alizes - Luc Lambert-">
+<META NAME="description" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<!--<base target="_top">-->
+
+</head>
+<body BACKGROUND="fond.jpg" tppabs="http://www.id-alizes.fr/darley/Images/fond.jpg" text="#000000" bgcolor="#F4D58E" LINK="#0000ff" VLINK="#FF6633">
+<SCRIPT LANGUAGE="Javascript1.1">
+<!-- Les petits poissons
+// Copyright Frank Milard - http://www.asaisir.com/a-la-page
+
+var nameSP2a = "marcassin1.gif";
+var nameSP2b = "marcassin2.gif";
+var heightSP2 = 20;
+var widthSP2 = 35;
+
+NS4 = (document.layers) ? 1 : 0;
+IE4 = (document.all) ? 1 : 0;
+VERSION4 = (NS4|IE4) ? 1 : 0;
+
+var objSP2 = new Array();
+var numObjSP2 = 6;
+var ptrSP2 = 0;
+
+var xborneSP2 = 100;
+var yborneSP2 = 100;
+var xaqSP2 = xborneSP2;
+var yaqSP2 = yborneSP2;
+var xcaqSP2 = xborneSP2;
+var ycaqSP2 = yborneSP2;
+
+var fSP2 = 0;
+
+function animObjSP2 () {
+    if (fSP2 == 0) {
+        (this.d) ? this.x+=2 : this.x-=2;
+        if (this.x >= xborneSP2) {
+            this.x = xborneSP2;
+	    this.changedir();
+	}
+	if (this.x <= -xborneSP2) {
+	    this.x = -xborneSP2;
+	    this.changedir();
+	}
+
+	if (Math.round(Math.random()*(this.s+1)*60) == 1) this.changedir ();
+    }
+
+    var t = Math.round(Math.random()*(this.s+1)*10);
+    if (t==2 && this.y <  yborneSP2) this.y++;
+    if (t==1 && this.y > -yborneSP2) this.y--;
+
+    if (NS4) {
+        this.layer.left = this.x+xaqSP2;
+	this.layer.top = this.y+yaqSP2;
+    } else {
+	this.layer.style.pixelLeft = this.x+xaqSP2;
+	this.layer.style.pixelTop = this.y+yaqSP2;
+    }
+}
+
+function changedirObjSP2 () { 
+    if (this.d == 0) {
+	this.d = 1;
+        this.img.src = nameSP2b;
+    }
+    else {
+	this.d = 0;
+        this.img.src = nameSP2a;
+    }
+}
+
+function defObjSP2(ID) {
+    if (NS4) {
+        this.layer = new Layer (0);
+        this.layer.visibility = "visible";
+        this.layer.document.write('<img name=\"imgSP2'+ID+'\" src=\"'+nameSP2a+'\" height=\"'+heightSP2+'\" width=\"'+widthSP2+'\" border=\"0\">');
+        this.layer.document.close();
+        eval ('this.img   = this.layer.document.images[\'imgSP2'+ID+'\']');
+    } else {
+        eval ('this.layer = document.all.SP2'+ID);
+        eval ('this.img   = document.images[\'imgSP2'+ID+'\']');
+    }
+    this.d = Math.round(Math.random());
+    this.s = Math.round(Math.random());
+    this.x = Math.round(Math.random()*2*xborneSP2) - xborneSP2;
+    this.y = Math.round(Math.random()*2*yborneSP2) - yborneSP2;
+
+    this.img.src = (this.d ==0) ? nameSP2a : nameSP2b;
+
+    this.anim = animObjSP2;
+    this.changedir = changedirObjSP2;
+}
+
+function animSP2() {
+    var dx = xcaqSP2-xaqSP2;
+    if (Math.abs(dx) > 2) {
+        var ix = Math.round(dx/10);
+	if (Math.abs(ix) < 2 ) ix = dx > 0 ? 2 : -2;
+        xaqSP2 += ix;
+	fSP2 = 1;
+    }
+    else {
+	xaqSP2 = xcaqSP2;
+	fSP2 = 0;
+    }
+
+    if (ycaqSP2 != yaqSP2) yaqSP2 += Math.round((ycaqSP2-yaqSP2)/10);
+
+    for(var x=0; x < numObjSP2; x++) {
+        if (dx != 0) {
+            if (dx < 0 && objSP2[x].d == 1) objSP2[x].changedir();
+            if (dx > 0 && objSP2[x].d == 0) objSP2[x].changedir();
+	}
+        objSP2[x].anim();
+    }
+}
+
+function mouseEventSP2(e) {
+    if (NS4) {
+        xcaqSP2 = e.pageX ;
+        ycaqSP2 = e.pageY ;
+    } else {
+        xcaqSP2 = event.clientX + document.body.scrollLeft ;
+        ycaqSP2 = event.clientY + document.body.scrollTop ;
+    }
+}
+
+function initSP2() {
+    if (VERSION4) {
+        for(var x=0; x<numObjSP2; x++) objSP2[x] = new defObjSP2(x) ;
+
+        if (NS4) document.captureEvents(Event.MOUSEMOVE);
+        document.onmousemove = mouseEventSP2;
+
+        setInterval("animSP2();",50);
+    }
+}
+
+if (VERSION4 && ! NS4) {
+    for (var x=0; x<numObjSP2; x++) {
+        document.write('<div id="SP2'+x+'" style="position: absolute; visibility: visible;">');
+        document.write('<img name="imgSP2'+x+'" src="'+nameSP2a+'" height="'+heightSP2+'" width="'+widthSP2+'" border="0"></div>');
+        document.write('</div>');
+    }
+}
+
+if (window.onload) {
+    if (window.RegExp) {
+        var regstr = '^[^\\{]*\\{((.|\\t|\\n|\\r)*)}[^\\}]*$';
+        window.onload.toString().match(regstr);
+        window.onload = new Function (RegExp.$1+"; initSP2 ();");
+    }
+}
+else window.onload = initSP2;
+
+// -->
+</SCRIPT>
+<table width="100%" border="0" background="fond-sang2.gif">
+  <tr>
+    <td>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" background="single_pixel.gif" tppabs="http://www.id-alizes.fr/darley/Images/single_pixel.gif">
+        <tr> 
+          <td align="left" valign="top" rowspan="3" width="146"> 
+            <table border="0" cellpadding="0" cellspacing="0" width="145" background="single_pixel.gif" tppabs="http://www.id-alizes.fr/darley/Images/single_pixel.gif">
+              <tr> 
+                <td> <a href="index.html" tppabs="http://www.id-alizes.fr/darley/index.html"> 
+                  <img src="g1.gif" tppabs="http://www.id-alizes.fr/darley/Images/g1.gif" height="167" width="145" align="texttop" alt= "Acceuil"  border=0 > 
+                  </a> </td>
+              </tr>
+              <tr> 
+                <td> <a href="present.html" tppabs="http://www.id-alizes.fr/darley/presentation.html"> 
+                  <img src="g2.gif" tppabs="http://www.id-alizes.fr/darley/Images/g2.gif" height="26" width="145" align="texttop" alt= "Presentation"  border=0 > 
+                  </a></td>
+              </tr>
+              <tr> 
+                <td> <a href="produits.html" tppabs="http://www.id-alizes.fr/darley/produits.html"> 
+                  <img src="g3.gif" tppabs="http://www.id-alizes.fr/darley/Images/g3.gif" height="26" width="145" align="texttop" alt= "Produits"  border=0 > 
+                  </a></td>
+              </tr>
+              <tr> 
+                <td> <a href="command.html" tppabs="http://www.id-alizes.fr/darley/commander.html"> 
+                  <img src="g4.gif" tppabs="http://www.id-alizes.fr/darley/Images/g4.gif" height="26" width="145" align="texttop" alt= "Commander"  border=0 > 
+                  </a></td>
+              </tr>
+              <tr> 
+                <td> <a href="sanglier.html" tppabs="http://www.id-alizes.fr/darley/sanglier.html"> 
+                  <img src="g5blanc.gif" tppabs="http://www.id-alizes.fr/darley/Images/g5.gif" height="26" width="145" align="texttop" alt= "Sanglier"  border=0 > 
+                  </a></td>
+              </tr>
+              <tr> 
+                <td> <a href="ferme.html" tppabs="http://www.id-alizes.fr/darley/ferme.html"> 
+                  <img src="g6.gif" tppabs="http://www.id-alizes.fr/darley/Images/g6.gif" height="26" width="145" align="texttop" alt= "La Ferme"  border=0 > 
+                  </a></td>
+              </tr>
+              <tr> 
+                <td> 
+                  <p><font size="4"><font color="#0000FF"><a href="qsn.htm"><img src="g10.gif" width="145" height="26" border="0"></a><br>
+                    </font></font></p>
+                </td>
+              </tr>
+              <tr> 
+                <td> 
+                  <p><a href="poteries.htm"><img src="g11.gif" width="145" height="26" border="0"></a><br>
+                  </p>
+                </td>
+              </tr>
+              <tr> 
+                <td> 
+                  <p><font size="4" color="#0000FF"><a href="huiles.htm"><img src="g12.gif" width="145" height="26" border="0"></a><br>
+                    </font></p>
+                </td>
+              </tr>
+              <tr valign="top"> 
+                <td height="4"> 
+                  <p><a href="escalade.htm"><img src="g14.gif" width="145" height="26" border="0"></a><br>
+                  </p>
+                </td>
+              </tr>
+              <tr valign="top"> 
+                <td height="4"><a href="brebis.htm"><img src="g15.gif" width="145" height="26" border="0"></a><br>
+                </td>
+              </tr>
+              <tr valign="top"> 
+                <td height="4"> 
+                  <p><a href="jeu.htm"><img src="g16.gif" width="145" height="26" border="0"></a><br>
+                  </p>
+                </td>
+              </tr>
+              <tr> 
+                <td> 
+                  <p><a href="http://darley.fr/darley.htm"><img src="g17.gif" width="145" height="26" border="0"></a><br>
+                  </p>
+                </td>
+              </tr>
+              <tr> 
+                <td> <a href="mailto:eric@darley.com.fr" tppabs="http://www.id-alizes.fr/darley/ecriveznous.html"> 
+                  <img src="g7.gif" tppabs="http://www.id-alizes.fr/darley/Images/g7.gif" height="26" width="145" align="texttop" alt= "Presses"  border=0 > 
+                  </a></td>
+              </tr>
+              <tr> 
+                <td> <a href="liens.html" tppabs="http://www.id-alizes.fr/darley/liens.html"> 
+                  <img src="g8.gif" tppabs="http://www.id-alizes.fr/darley/Images/g8.gif" height="26" width="145" align="texttop" alt= "Liens"  border=0 > 
+                  </a></td>
+              </tr>
+              <tr> 
+                <td><img src="g9.gif" tppabs="http://www.id-alizes.fr/darley/Images/g9.gif" height="88" width="145" align="texttop"  border=0 ></td>
+              </tr>
+            </table>
+          </td>
+          <td align="left" valign="top" colspan="2"><img src="http://darley.fr/haut.gif" tppabs="http://www.id-alizes.fr/darley/Images/haut.gif" height="122" width="605" align="texttop" alt= Acceuil  border=0 ></td>
+        </tr>
+        <tr> 
+          <td align="left" valign="top" width="862" height="746"> 
+            <table width="100%" border="2" cellspacing="1" height="724">
+              <tr> 
+                <td colspan="6" height="242"> 
+                  <div align="center"> 
+                    <p><b>Ordre des ARTIODACTYLES:</b></p>
+                    <p>Ordre de Mammifères ongulés dont les doigts munis de sabots 
+                      sont en nombre pair, et dont l'axe des membres passe par 
+                      les deux doigts médians, qui, seuls en général, reposent 
+                      sur le sol, les autres doigts étant le plus souvent réduits 
+                      ou inexistants.</p>
+                    <p><b>Tableau des superfamilles et des familles:</b></p>
+                  </div>
+                </td>
+              </tr>
+              <tr> 
+                <td colspan="4" valign="top" height="232"> 
+                  <div align="center"> 
+                    <p><b>Sous-ordres des ruminants:</b></p>
+                    <p><font size="-1">Mammifères artiodactyles onguligrades, 
+                      dont les représentants se caractérisent principalement par 
+                      un estomac divisé en quatre compartiments autorisant la 
+                      rumination et par la présence de cornes.</font></p>
+                    <p>4 superfamilles:</p>
+                  </div>
+                </td>
+                <td colspan="2" valign="top" height="232"> 
+                  <div align="center"> 
+                    <p><b>Sous-ordre des suiformes:</b></p>
+                    <p><font size="-1">Les suiformes ont une denture complète, 
+                      leurs canines sont à croissance continue et finissent par 
+                      se transformer en défense; leurs molaires, de type bunodonte 
+                      évolué, possèdent des tubercules arrondis et une couronne 
+                      très basse. Leurs membres sont terminés par quatre doigts; 
+                      les troisièmes et les quatrièmes métacarpiens et métatarsiens 
+                      sont toujours séparés. La peau des suiformes, épaisse et 
+                      capable de produire une profonde couche de lard, n'est couverte 
+                      que par de rares poils. </font></p>
+                    <p>2 familles :</p>
+                  </div>
+                </td>
+              </tr>
+              <tr> 
+                <td width="11%" height="126"> 
+                  <div align="center"><font size="2"><i>Tylopoid&eacute;s</i></font></div>
+                </td>
+                <td width="13%" height="126"> 
+                  <div align="center"><font size="2"><i>Tauroides</i></font></div>
+                </td>
+                <td width="16%" height="126"> 
+                  <div align="center"><font size="2"><i>Elaphoides</i></font></div>
+                </td>
+                <td width="15%" height="126"> 
+                  <div align="center"><font size="2"><i>Giraffid&eacute;s</i></font></div>
+                </td>
+                <td width="24%" rowspan="5" valign="middle"> 
+                  <div align="center"> 
+                    <p><i><font size="2">Hippopotamidae</font></i><br>
+                      <font size="2">Mammifères suiformes, de grande taille au 
+                      corps massif recouvert d'une peau épaisse, à grosse tête, 
+                      au museau large et aux pattes courtes et robustes.</font></p>
+                  </div>
+                </td>
+                <td width="21%" rowspan="5" valign="middle"> 
+                  <div align="center"><i><font size="2"><a href="suid%EF%B9%AAE9s.htm">Suidae</a><br>
+                    </font></i><font size="2">Animaux à l'aspect trapu, dont la 
+                    tête, plus ou moins allongée en cône, se termine par un nez 
+                    cartilagineux (le groin) et dont les canines sont souvent 
+                    allongées en forme de défenses. </font></div>
+                  <div align="center"></div>
+                </td>
+              </tr>
+              <tr> 
+                <td width="11%" height="11"><font size="2">Chameaux</font></td>
+                <td width="13%" height="11"><font size="2">Boeufs</font></td>
+                <td width="16%" height="11"><font size="2">Cerfs</font></td>
+                <td width="15%" height="11"><font size="2">Giraphes</font></td>
+              </tr>
+              <tr> 
+                <td width="11%" height="7"><font size="2">Lamas</font></td>
+                <td width="13%" height="7"><font size="2">Buffles</font></td>
+                <td width="16%" height="7"><font size="2">Chevreuils</font></td>
+                <td width="15%" height="7"><font size="2">Okapis</font></td>
+              </tr>
+              <tr> 
+                <td width="11%" height="6">&nbsp;</td>
+                <td width="13%" height="6"><font size="2">Antilopes</font></td>
+                <td width="16%" height="6"><font size="2">Chevrotains</font></td>
+                <td width="15%" height="6">&nbsp;</td>
+              </tr>
+              <tr> 
+                <td height="5">&nbsp;</td>
+                <td height="5"><font size="2">Ovins</font></td>
+                <td height="5">&nbsp;</td>
+                <td height="5">&nbsp;</td>
+              </tr>
+              <tr> 
+                <td width="11%" height="2">&nbsp;</td>
+                <td width="13%" height="2"><font size="2">Caprins</font></td>
+                <td width="16%" height="2">&nbsp;</td>
+                <td width="15%" height="2">&nbsp;</td>
+                <td width="24%" height="2"> 
+                  <div align="center"><font size="2">2 genres</font></div>
+                </td>
+                <td width="21%" height="2"> 
+                  <div align="center"><font size="2">8 genres</font></div>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td valign="top" width="148" height="746"> 
+            <table width="22%" border="0" cellspacing="0" height="38">
+              <tr> 
+                <td height="334"> <a href="system.htm"><img src="drsysbl.gif" width="145" height="44" border="0"></a><br>
+                  <img src="drartibl.gif" width="145" height="22" border="0"><br>
+                  <a href="http://darley.fr/suides.htm"><img src="drsuid.gif" width="145" height="22" border="0"></a><br>
+                  <a href="cata-tay.htm"><img src="drcata.gif" width="145" height="22" border="0"></a><br>
+                  <a href="tajacu.htm" target="tajacu"><img src="drtaya.gif" width="145" height="22" border="0"></a><br>
+                  <a href="babirus.htm" target="babirus"><img src="drbab.gif" width="145" height="22" border="0"></a><br>
+                  <a href="hyloch.htm" target="hyloch"><img src="drhylo.gif" width="145" height="22" border="0"></a><br>
+                  <a href="phaco.htm" target="phaco"><img src="drphac.gif" width="145" height="22" border="0"></a><br>
+                  <a href="potamoc.htm" target="potamoc"><img src="drpota.gif" width="145" height="22" border="0"></a><br>
+                  <a href="pocula.htm" target="pocula"><img src="drporc.gif" width="145" height="22" border="0"></a><br>
+                  <a href="sus.htm"><img src="drsus.gif" width="145" height="22" border="0"></a><br>
+                  <a href="anatomie.htm"><img src="drbio.gif" width="145" height="44" border="0"></a><br>
+                  <a href="tete.htm"><img src="drtete.gif" width="145" height="22" border="0"></a><br>
+                  <a href="corps.htm"><img src="drcorp.gif" width="145" height="22" border="0"></a><br>
+                  <img src="drdige.gif" width="145" height="22"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr> 
+          <td align="left" valign="top" height="80" colspan="2"> <a href="http://www.id-alizes.fr/" tppabs="http://www.id-alizes.fr/"> 
+            <img src="bas.gif" tppabs="http://www.id-alizes.fr/darley/Images/bas.gif" height="55" width="605" align="texttop" alt="ID Aliz&eacute;s"  border=0 > 
+            </a></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
