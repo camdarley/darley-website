@@ -1,0 +1,69 @@
+/* Legacy styles */
+.sidebar {
+  width: 145px;
+}
+
+.sidebar img {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.main-content {
+  padding: 20px;
+}
+
+.updates {
+  margin: 20px 0;
+}
+
+/* Table styles */
+table {
+  border-collapse: collapse;
+}
+
+td {
+  vertical-align: top;
+}
+
+/* Link styles */
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Image styles */
+img {
+  border: 0;
+  display: block;
+}
+
+/* Typography */
+body {
+  line-height: 1.4;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  table {
+    width: 90% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  table {
+    width: 100% !important;
+  }
+
+  .sidebar {
+    width: 100px;
+  }
+
+  .sidebar img {
+    width: 100%;
+    height: auto;
+  }
+}
