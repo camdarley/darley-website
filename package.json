@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "start": "node sammy.js; serve -s _static -l tcp://0.0.0.0:$PORT -n",
-    "build": "vite build",
+    "build": "rm -r _static 2>/dev/null; node sammy.js; vite build",
     "preview": "vite preview"
   },
   "dependencies": {
