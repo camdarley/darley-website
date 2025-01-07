@@ -2,9 +2,9 @@ import { useState } from 'react';
 import Modal from 'react-modal';
 import pateGenievreImg from '/src/images/products/patedet.gif';
 import pateHureImg from '/src/images/products/huredet.gif';
-import civetImg from '/src/images/products/civet.JPG';
-import patecha2 from '/src/images/products/patécha2.JPG';
-import civetboite1 from '/src/images/products/civetboite1.JPG';
+import civetImg from '/src/images/products/civet.jpg';
+import patecha2 from '/src/images/products/patécha2.jpg';
+import civetboite1 from '/src/images/products/civetboite1.jpg';
 
 
 const customStyles = {

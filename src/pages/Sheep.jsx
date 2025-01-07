@@ -1,12 +1,12 @@
-import agnelag1 from '../images/photobrebis/agnelag1.JPG';
-import agnelag2 from '../images/photobrebis/agnelag2.JPG';
-import agnelag3 from '../images/photobrebis/agnelag3.JPG';
-import agnelag4 from '../images/photobrebis/agnelag4.JPG';
-import agnelag5 from '../images/photobrebis/agnelag5.JPG';
-import black1 from '../images/photobrebis/black1.JPG';
-import black2 from '../images/photobrebis/black2.JPG';
-import traite01 from '../images/photobrebis/traite01.JPG';
-import traite02 from '../images/photobrebis/traite02.JPG';
+import agnelag1 from '../images/photobrebis/agnelag1.jpg';
+import agnelag2 from '../images/photobrebis/agnelag2.jpg';
+import agnelag3 from '../images/photobrebis/agnelag3.jpg';
+import agnelag4 from '../images/photobrebis/agnelag4.jpg';
+import agnelag5 from '../images/photobrebis/agnelag5.jpg';
+import black1 from '../images/photobrebis/black1.jpg';
+import black2 from '../images/photobrebis/black2.jpg';
+import traite01 from '../images/photobrebis/traite01.jpg';
+import traite02 from '../images/photobrebis/traite02.jpg';
 
 function Sheep() {
   return (
