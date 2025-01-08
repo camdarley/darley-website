@@ -11,8 +11,12 @@ import Oils from './pages/Oils';
 import Climbing from './pages/Climbing';
 import Sheep from './pages/Sheep';
 import Links from './pages/Links';
+import { initSP2 } from './js/marcassins';
 
 function App() {
+
+  initSP2();
+
   return (
     <Router>
       <Routes>

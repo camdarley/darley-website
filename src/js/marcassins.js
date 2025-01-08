@@ -1,14 +1,13 @@
 // Les petits poissons
 // Copyright Frank Milard - http://www.asaisir.com/a-la-page
-import nameSP2a from "../images/marcassin1.gif";
-import nameSP2b from "../images/marcassin2.gif";
+import nameSP2a from "/src/images/marcassin1.gif";
+import nameSP2b from "/src/images/marcassin2.gif";
 
-const heightSP2 = 20;
-const widthSP2 = 35;
+const heightSP2 = 35;
+const widthSP2 = 70;
 
 const objSP2 = [];
 const numObjSP2 = 6;
-let ptrSP2 = 0;
 
 let xborneSP2 = 100;
 let yborneSP2 = 100;
@@ -18,6 +17,10 @@ let xcaqSP2 = xborneSP2;
 let ycaqSP2 = yborneSP2;
 
 let fSP2 = 0;
+
+const backgroundSP2a = `url('${nameSP2a}')`;
+const backgroundSP2b = `url('${nameSP2b}')`;
+
 
 function animObjSP2() {
   if (fSP2 == 0) {
@@ -45,10 +48,10 @@ function animObjSP2() {
 function changedirObjSP2() {
   if (this.d == 0) {
     this.d = 1;
-    this.layer.style.background = `url('${nameSP2b}')`;
+    this.layer.style.backgroundImage = backgroundSP2b;
   } else {
     this.d = 0;
-    this.layer.style.background = `url('${nameSP2a}')`;
+    this.layer.style.backgroundImage = backgroundSP2a;
   }
 }
 
@@ -59,7 +62,7 @@ function defObjSP2(ID) {
   this.x = Math.round(Math.random() * 2 * xborneSP2) - xborneSP2;
   this.y = Math.round(Math.random() * 2 * yborneSP2) - yborneSP2;
 
-  this.layer.style.background = this.d == 0 ? `url('${nameSP2a}')` : `url('${nameSP2b}')`;
+  this.layer.style.backgroundImage = this.d == 0 ? backgroundSP2a : backgroundSP2b;
 
   this.anim = animObjSP2;
   this.changedir = changedirObjSP2;
@@ -97,14 +100,15 @@ function initSP2() {
   for (let x = 0; x < numObjSP2; x++) {
     const wrapper = document.createElement('div');
     wrapper.id = 'SP2' + x;
+    wrapper.className = 'marcassin';
     wrapper.style.position = 'absolute';
     wrapper.style.visibility = 'visible';
     wrapper.style.height = heightSP2 + 'px';
     wrapper.style.width = widthSP2 + 'px';
-    wrapper.style.backgroundSize = 'contain';
     wrapper.style.pointerEvents = 'none';
-    wrapper.style.background = `url('${nameSP2a}')`;
-
+    wrapper.style.backgroundImage = backgroundSP2a;
+    wrapper.style.backgroundSize = 'contain';
+    wrapper.style.backgroundRepeat = 'no-repeat';
     document.body.appendChild(wrapper);
   }
   
